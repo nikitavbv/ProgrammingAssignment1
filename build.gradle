@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'checkstyle'
     id 'com.github.spotbugs' version '1.6.9'
 }
 
@@ -44,4 +45,8 @@ spotbugs {
     effort = "max"
     reportLevel = "high"
     ignoreFailures = false
+}
+
+checkstyle {
+    toolVersion '8.17'
 }
