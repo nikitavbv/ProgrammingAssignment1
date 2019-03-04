@@ -1,9 +1,33 @@
 package com.nikitavbv.labs.introtoprogramming.lab1;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Main {
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-    }
+  public static void main(String[] args) {
+    
+  }
 
+  public static List<Student> loadStudentList(File file) throws IOException {
+    return new BufferedReader(new FileReader(file))
+            .lines()
+            .map(Main::parseStudent)
+            .collect(Collectors.toList());
+  }
+
+  private static Student parseStudent(String line) {
+    String[] info = line.split(",");
+    String name = info[0];
+    List<Integer> marks = Arrays.stream(Arrays.copyOfRange(info, 1, info.length - 2))
+            .map(Integer::parseInt)
+            .collect(Collectors.toList());
+    boolean isContract = info[info.length - 1].equals("TRUE");
+    return new Student(name, marks, isContract);
+  }
 }
