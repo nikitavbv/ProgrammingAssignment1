@@ -1,4 +1,5 @@
 # Introduction to programming - lab1
+[![Build Status](https://travis-ci.org/nikitavbv/ProgrammingAssignment1.svg?branch=master)](https://travis-ci.org/nikitavbv/ProgrammingAssignment1)
 
 Variant: 0
 
