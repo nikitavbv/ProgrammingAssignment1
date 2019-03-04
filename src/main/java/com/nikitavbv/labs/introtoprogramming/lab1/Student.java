@@ -1,7 +1,7 @@
 package com.nikitavbv.labs.introtoprogramming.lab1;
 
 import java.util.List;
-import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 
 public class Student {
   private String name;
@@ -14,9 +14,8 @@ public class Student {
     this.isContract = isContract;
   }
 
-  public OptionalDouble getAverageScore() {
+  public double getAverageScore() {
     return subjectsMarks.stream()
-            .mapToDouble(a -> a)
-            .average();
+            .collect(Collectors.averagingDouble(el -> el));
   }
 }
