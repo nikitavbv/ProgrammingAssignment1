@@ -24,6 +24,7 @@ public class Main {
   public static List<Student> loadStudentList(File file) throws IOException {
     return new BufferedReader(new FileReader(file))
             .lines()
+            .skip(1)
             .map(Main::parseStudent)
             .collect(Collectors.toList());
   }
