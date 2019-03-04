@@ -18,4 +18,16 @@ public class Student {
     return subjectsMarks.stream()
             .collect(Collectors.averagingDouble(el -> el));
   }
+
+  public boolean isContract() {
+    return isContract;
+  }
+
+  public String toCSV() {
+    return String.format("%s,%.3f", name, getAverageScore());
+  }
+
+  public String toString() {
+    return String.format("%-20s %.3f", name, getAverageScore());
+  }
 }
