@@ -10,8 +10,15 @@ import java.util.stream.Collectors;
 
 public class Main {
 
+  private static final String INPUT_FILE_NAME = "students.csv";
+
   public static void main(String[] args) {
-    
+    try {
+      List<Student> students = loadStudentList(new File(INPUT_FILE_NAME));
+    } catch (IOException e) {
+      System.err.println("Failed to read file");
+      e.printStackTrace();
+    }
   }
 
   public static List<Student> loadStudentList(File file) throws IOException {
