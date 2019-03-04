@@ -4,6 +4,10 @@ jdk:
   - oraclejdk8
 services:
   - docker
+branches:
+  only:
+    - master
+    - dev
 
 before_install:
   - chmod +x gradlew
