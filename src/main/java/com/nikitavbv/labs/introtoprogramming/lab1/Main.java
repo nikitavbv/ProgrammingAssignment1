@@ -67,7 +67,7 @@ public class Main {
     return new Student(name, marks, isContract);
   }
 
-  private static List<Student> selectTopNonContractStudents(List<Student> students, double topPercentage) {
+  static List<Student> selectTopNonContractStudents(List<Student> students, double topPercentage) {
     List<Student> rating = students.stream()
             .filter(s -> !s.isContract())
             .sorted(Comparator.comparingDouble(s -> -s.getAverageScore()))
