@@ -3,9 +3,11 @@ package com.nikitavbv.labs.introtoprogramming.lab1;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -41,7 +43,7 @@ public class Main {
     }
   }
 
-  public static List<Student> loadStudentList(File file) throws IOException {
+  private static List<Student> loadStudentList(File file) throws IOException {
     return new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))
             .lines()
             .skip(1)
@@ -50,7 +52,7 @@ public class Main {
   }
 
   private static void saveStudentsList(List<Student> students, File file) throws IOException {
-    PrintWriter pw = new PrintWriter(new FileWriter(file));
+    PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8));
     students.stream().map(Student::toCSV).forEach(pw::println);
     pw.close();
   }
