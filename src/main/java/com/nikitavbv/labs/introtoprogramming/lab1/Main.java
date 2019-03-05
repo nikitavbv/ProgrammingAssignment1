@@ -41,10 +41,7 @@ public class Main {
       List<Student> studentsWithScholarship =
               selectTopNonContractStudents(students, SCHOLARSHIP_PERCENTAGE);
 
-      double minScoreForScholarship = studentsWithScholarship.stream()
-              .mapToDouble(Student::getAverageScore)
-              .min()
-              .orElseThrow(() -> new RuntimeException("No students eligible for scholarship"));
+      double minScoreForScholarship = getMinScoreForScholarship(studentsWithScholarship);
 
       System.out.printf("Min score for scholarship: %f%n", minScoreForScholarship);
       System.out.printf("Students with scholarship (%d total):%n",
@@ -120,5 +117,18 @@ public class Main {
             .sorted(Comparator.comparingDouble(s -> -s.getAverageScore()))
             .collect(Collectors.toList());
     return rating.subList(0, (int) Math.floor(rating.size() * topPercentage));
+  }
+
+  /**
+   * Returns min score for student to be eligible for scholarship.
+   *
+   * @param studentsWithScholarship list of students with scholarship
+   * @return min score across students with scholarship
+   */
+  static double getMinScoreForScholarship(List<Student> studentsWithScholarship) {
+    return studentsWithScholarship.stream()
+            .mapToDouble(Student::getAverageScore)
+            .min()
+            .orElseThrow(() -> new RuntimeException("No students eligible for scholarship"));
   }
 }

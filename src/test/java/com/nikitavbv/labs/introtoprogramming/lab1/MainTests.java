@@ -7,6 +7,7 @@ import static org.junit.Assert.assertFalse;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -98,5 +99,18 @@ public class MainTests {
             "Emily Thomas,78.200\n",
             out.toString()
     );
+  }
+
+  @Test
+  public void testMinScoreForScholarship() {
+    double result = Main.getMinScoreForScholarship(
+            Main.selectTopNonContractStudents(DUMMY_STUDENTS, 1f)
+    );
+    assertEquals(73.0, result);
+  }
+
+  @Test(expected = RuntimeException.class)
+  public void testMinScoreNoStudents() {
+    Main.getMinScoreForScholarship(Collections.emptyList());
   }
 }
