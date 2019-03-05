@@ -29,12 +29,12 @@ public class StudentTests {
 
   @Test
   public void testStudentToCSV() {
-    assertEquals("John Doe,73.000", DUMMY_STUDENTS.get(0).toCSV());
+    assertEquals("John Doe,73.000", DUMMY_STUDENTS.get(0).toCsv());
   }
 
   @Test
   public void testStudentWithNoSubjectsToCSV() {
-    assertEquals("John Doe,0.000", DUMMY_STUDENTS.get(1).toCSV());
+    assertEquals("John Doe,0.000", DUMMY_STUDENTS.get(1).toCsv());
   }
 
   @Test

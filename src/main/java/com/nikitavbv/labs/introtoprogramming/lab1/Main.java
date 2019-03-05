@@ -82,7 +82,7 @@ public class Main {
   private static void saveStudentsList(List<Student> students, File file) throws IOException {
     PrintWriter pw = new PrintWriter(new OutputStreamWriter(
             new FileOutputStream(file), StandardCharsets.UTF_8));
-    students.stream().map(Student::toCSV).forEach(pw::println);
+    students.stream().map(Student::toCsv).forEach(pw::println);
     pw.close();
   }
 
