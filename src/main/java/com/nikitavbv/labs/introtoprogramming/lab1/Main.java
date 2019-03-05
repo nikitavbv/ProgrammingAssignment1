@@ -82,7 +82,9 @@ public class Main {
    */
   static List<Student> selectTopNonContractStudents(List<Student> students, double topPercentage) {
     if (topPercentage < 0 || topPercentage > 1) {
-      throw new IllegalArgumentException("Percentage of students to select should be in bounds of 0...1");
+      throw new IllegalArgumentException(
+              "Percentage of students to select should be in bounds of 0...1"
+      );
     }
 
     List<Student> rating = students.stream()
