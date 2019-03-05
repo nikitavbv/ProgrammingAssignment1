@@ -29,7 +29,6 @@ public class Main {
 
   /**
    * This starts application.
-   *
    * Input file is read and parsed. Then students eligible for scholarship are determined
    * and saved to the output file. Also, min score for scholarship and student rating are
    * print to System.out.
@@ -58,7 +57,7 @@ public class Main {
   }
 
   /**
-   * Load student list from file
+   * Load student list from file.
    *
    * @param file file with student data (csv)
    * @return list of students
@@ -88,11 +87,11 @@ public class Main {
   }
 
   /**
-   * Select top non-contract students from the list
+   * Select top non-contract students from the list.
    *
    * @param students all students
-   * @param topPercentage percentage of students to select (relative to the number of non-contract students).
-   *                      Should be in bounds of 0...1
+   * @param topPercentage percentage of students to select (relative to the number of non-contract
+   *                      students). Should be in bounds of 0...1
    * @return result student list
    */
   static List<Student> selectTopNonContractStudents(List<Student> students, double topPercentage) {
