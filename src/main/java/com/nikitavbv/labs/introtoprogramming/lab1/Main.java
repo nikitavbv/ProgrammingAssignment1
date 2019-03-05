@@ -13,6 +13,13 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Determine students eligible for scholarship based on subject scores.
+ * Intro to programming - assignment 1
+ *
+ * @author Nikita Volobuev
+ * @author Bohdan Fedorchenko
+ */
 public class Main {
 
   private static final String INPUT_FILE_NAME = "students.csv";
@@ -65,6 +72,13 @@ public class Main {
             .collect(Collectors.toList());
   }
 
+  /**
+   * Save student list to file (as csv).
+   *
+   * @param students student list to save
+   * @param file file to save to
+   * @throws IOException if file write failed
+   */
   private static void saveStudentsList(List<Student> students, File file) throws IOException {
     PrintWriter pw = new PrintWriter(new OutputStreamWriter(
             new FileOutputStream(file), StandardCharsets.UTF_8));
