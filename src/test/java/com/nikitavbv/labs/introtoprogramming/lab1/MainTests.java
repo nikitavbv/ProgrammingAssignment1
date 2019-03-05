@@ -63,6 +63,16 @@ public class MainTests {
     assertEquals(0, selectedStudents.size());
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testSelectNegativePercentage() {
+    Main.selectTopNonContractStudents(DUMMY_STUDENTS, -0.5f);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSelectMoreThan100Percents() {
+    Main.selectTopNonContractStudents(DUMMY_STUDENTS, 1.05f);
+  }
+
   @Test
   public void testParseStudent() {
     Student student = Main.parseStudent(DUMMY_STUDENT_INFO.get(0));
