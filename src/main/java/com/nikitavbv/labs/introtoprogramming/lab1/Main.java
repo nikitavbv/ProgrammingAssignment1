@@ -25,7 +25,8 @@ public class Main {
   public static void main(String[] args) {
     try {
       List<Student> students = loadStudentList(new File(INPUT_FILE_NAME));
-      List<Student> studentsWithScholarship = selectTopNonContractStudents(students, SCHOLARSHIP_PERCENTAGE);
+      List<Student> studentsWithScholarship =
+              selectTopNonContractStudents(students, SCHOLARSHIP_PERCENTAGE);
 
       double minScoreForScholarship = studentsWithScholarship.stream()
               .mapToDouble(Student::getAverageScore)
@@ -33,7 +34,8 @@ public class Main {
               .orElseThrow(() -> new RuntimeException("No students eligible for scholarship"));
 
       System.out.printf("Min score for scholarship: %f%n", minScoreForScholarship);
-      System.out.printf("Students with scholarship (%d total):%n", studentsWithScholarship.size());
+      System.out.printf("Students with scholarship (%d total):%n",
+              studentsWithScholarship.size());
       studentsWithScholarship.forEach(System.out::println);
 
       saveStudentsList(studentsWithScholarship, new File(OUTPUT_FILE_NAME));
@@ -44,7 +46,8 @@ public class Main {
   }
 
   private static List<Student> loadStudentList(File file) throws IOException {
-    return new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))
+    return new BufferedReader(new InputStreamReader(
+            new FileInputStream(file), StandardCharsets.UTF_8))
             .lines()
             .skip(1)
             .map(Student::fromCsv)
@@ -52,7 +55,8 @@ public class Main {
   }
 
   private static void saveStudentsList(List<Student> students, File file) throws IOException {
-    PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8));
+    PrintWriter pw = new PrintWriter(new OutputStreamWriter(
+            new FileOutputStream(file), StandardCharsets.UTF_8));
     students.stream().map(Student::toCSV).forEach(pw::println);
     pw.close();
   }
