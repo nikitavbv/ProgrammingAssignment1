@@ -6,6 +6,8 @@ import static org.junit.Assert.assertFalse;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -76,7 +78,7 @@ public class MainTests {
   @Test
   public void testLoadStudentList() {
     List<Student> studentList = Main.loadStudentList(
-            new ByteArrayInputStream(DUMMY_CSV_INPUT.getBytes())
+            new ByteArrayInputStream(DUMMY_CSV_INPUT.getBytes(StandardCharsets.UTF_8))
     );
     assertEquals(2, studentList.size());
     assertEquals("Ivanov", studentList.get(0).name);
@@ -88,7 +90,7 @@ public class MainTests {
   }
 
   @Test
-  public void testSaveStudentsList() {
+  public void testSaveStudentsList() throws UnsupportedEncodingException {
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     Main.saveStudentsList(DUMMY_STUDENTS, out);
     assertEquals("John Doe,73.000\n"
@@ -97,7 +99,7 @@ public class MainTests {
             + "Lucas Sanders,81.800\n"
             + "Edgar Turner,75.400\n"
             + "Emily Thomas,78.200\n",
-            out.toString()
+            out.toString(StandardCharsets.UTF_8.name())
     );
   }
 
