@@ -3,16 +3,23 @@ package com.nikitavbv.labs.introtoprogramming.lab1;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Determine students eligible for scholarship based on subject scores.
+ * Intro to programming - assignment 1
+ *
+ * @author Nikita Volobuev
+ * @author Bohdan Fedorchenko
+ */
 public class Main {
 
   private static final String INPUT_FILE_NAME = "students.csv";
@@ -20,10 +27,17 @@ public class Main {
 
   private static final double SCHOLARSHIP_PERCENTAGE = 0.4f;
 
+  /**
+   * This starts application.
+   * Input file is read and parsed. Then students eligible for scholarship are determined
+   * and saved to the output file. Also, min score for scholarship and student rating are
+   * print to System.out.
+   **/
   public static void main(String[] args) {
     try {
       List<Student> students = loadStudentList(new File(INPUT_FILE_NAME));
-      List<Student> studentsWithScholarship = selectTopNonContractStudents(students, SCHOLARSHIP_PERCENTAGE);
+      List<Student> studentsWithScholarship =
+              selectTopNonContractStudents(students, SCHOLARSHIP_PERCENTAGE);
 
       double minScoreForScholarship = studentsWithScholarship.stream()
               .mapToDouble(Student::getAverageScore)
@@ -31,7 +45,8 @@ public class Main {
               .orElseThrow(() -> new RuntimeException("No students eligible for scholarship"));
 
       System.out.printf("Min score for scholarship: %f%n", minScoreForScholarship);
-      System.out.printf("Students with scholarship (%d total):%n", studentsWithScholarship.size());
+      System.out.printf("Students with scholarship (%d total):%n",
+              studentsWithScholarship.size());
       studentsWithScholarship.forEach(System.out::println);
 
       saveStudentsList(studentsWithScholarship, new File(OUTPUT_FILE_NAME));
@@ -41,31 +56,51 @@ public class Main {
     }
   }
 
-  public static List<Student> loadStudentList(File file) throws IOException {
-    return new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))
+  /**
+   * Load student list from file.
+   *
+   * @param file file with student data (csv)
+   * @return list of students
+   * @throws IOException if file read failed
+   */
+  private static List<Student> loadStudentList(File file) throws IOException {
+    return new BufferedReader(new InputStreamReader(
+            new FileInputStream(file), StandardCharsets.UTF_8))
             .lines()
             .skip(1)
-            .map(Main::parseStudent)
+            .map(Student::fromCsv)
             .collect(Collectors.toList());
   }
 
+  /**
+   * Save student list to file (as csv).
+   *
+   * @param students student list to save
+   * @param file file to save to
+   * @throws IOException if file write failed
+   */
   private static void saveStudentsList(List<Student> students, File file) throws IOException {
-    PrintWriter pw = new PrintWriter(new FileWriter(file));
-    students.stream().map(Student::toCSV).forEach(pw::println);
+    PrintWriter pw = new PrintWriter(new OutputStreamWriter(
+            new FileOutputStream(file), StandardCharsets.UTF_8));
+    students.stream().map(Student::toCsv).forEach(pw::println);
     pw.close();
   }
 
-  private static Student parseStudent(String line) {
-    String[] info = line.split(",");
-    String name = info[0];
-    List<Integer> marks = Arrays.stream(Arrays.copyOfRange(info, 1, info.length - 2))
-            .map(Integer::parseInt)
-            .collect(Collectors.toList());
-    boolean isContract = info[info.length - 1].equals("TRUE");
-    return new Student(name, marks, isContract);
-  }
+  /**
+   * Select top non-contract students from the list.
+   *
+   * @param students all students
+   * @param topPercentage percentage of students to select (relative to the number of non-contract
+   *                      students). Should be in bounds of 0...1
+   * @return result student list
+   */
+  static List<Student> selectTopNonContractStudents(List<Student> students, double topPercentage) {
+    if (topPercentage < 0 || topPercentage > 1) {
+      throw new IllegalArgumentException(
+              "Percentage of students to select should be in bounds of 0...1"
+      );
+    }
 
-  private static List<Student> selectTopNonContractStudents(List<Student> students, double topPercentage) {
     List<Student> rating = students.stream()
             .filter(s -> !s.isContract())
             .sorted(Comparator.comparingDouble(s -> -s.getAverageScore()))
