@@ -61,7 +61,7 @@ public class Student {
    *
    * @return csv line
    */
-  public String toCSV() {
+  public String toCsv() {
     return String.format(Locale.ENGLISH, "%s,%.3f", name, getAverageScore());
   }
 
