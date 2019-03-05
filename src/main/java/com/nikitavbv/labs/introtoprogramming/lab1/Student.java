@@ -1,11 +1,12 @@
 package com.nikitavbv.labs.introtoprogramming.lab1;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class Student {
   String name;
-  private List<Integer> subjectsMarks;
+  List<Integer> subjectsMarks;
   private boolean isContract;
 
   Student(String name, List<Integer> marks, boolean isContract) {
@@ -24,10 +25,10 @@ public class Student {
   }
 
   public String toCSV() {
-    return String.format("%s,%.3f", name, getAverageScore());
+    return String.format(Locale.ENGLISH, "%s,%.3f", name, getAverageScore());
   }
 
   public String toString() {
-    return String.format("%-20s %.3f", name, getAverageScore());
+    return String.format(Locale.ENGLISH, "%-20s %.3f", name, getAverageScore());
   }
 }
