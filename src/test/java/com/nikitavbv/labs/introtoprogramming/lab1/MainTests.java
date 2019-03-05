@@ -24,9 +24,9 @@ public class MainTests {
           new Student("Emily Thomas", Arrays.asList(70, 62, 98, 77, 84), false)
   );
 
-  private static final String DUMMY_CSV_INPUT = "2\n" +
-          "Ivanov,78,61,95,87,90,FALSE\n" +
-          "Petrov,85,66,70,99,100,TRUE";
+  private static final String DUMMY_CSV_INPUT = "2\n"
+          + "Ivanov,78,61,95,87,90,FALSE\n"
+          + "Petrov,85,66,70,99,100,TRUE";
 
   @Test
   public void testSelectNonContractStudents() {
@@ -91,12 +91,12 @@ public class MainTests {
   public void testSaveStudentsList() {
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     Main.saveStudentsList(DUMMY_STUDENTS, out);
-    assertEquals("John Doe,73.000\n" +
-            "Sandra Reeves,79.800\n" +
-            "Ricky Edwards,75.400\n" +
-            "Lucas Sanders,81.800\n" +
-            "Edgar Turner,75.400\n" +
-            "Emily Thomas,78.200\n",
+    assertEquals("John Doe,73.000\n"
+            + "Sandra Reeves,79.800\n"
+            + "Ricky Edwards,75.400\n"
+            + "Lucas Sanders,81.800\n"
+            + "Edgar Turner,75.400\n"
+            + "Emily Thomas,78.200\n",
             out.toString()
     );
   }
