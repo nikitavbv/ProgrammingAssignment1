@@ -24,7 +24,10 @@ public class MainTests {
   @Test
   public void testSelectNonContractStudents() {
     List<Student> selectedStudents = Main.selectTopNonContractStudents(DUMMY_STUDENTS, 0.5f);
-    Set<String> studentNames = selectedStudents.stream().map(s -> s.name).collect(Collectors.toSet());
+    Set<String> studentNames = selectedStudents
+            .stream()
+            .map(s -> s.name)
+            .collect(Collectors.toSet());
 
     selectedStudents.forEach(student -> assertFalse(student.isContract()));
     assertEquals(2, studentNames.size());
