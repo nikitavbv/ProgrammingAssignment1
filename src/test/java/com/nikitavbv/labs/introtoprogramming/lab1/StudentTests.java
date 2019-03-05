@@ -3,6 +3,7 @@ package com.nikitavbv.labs.introtoprogramming.lab1;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,6 +16,15 @@ public class StudentTests {
           new Student("John Doe", Collections.emptyList(), true),
           new Student("", Arrays.asList(10, 10, 10, 10, 10), false),
           new Student("Hans Christian Andersen", Collections.singletonList(10), true)
+  );
+
+  private static final List<String> DUMMY_STUDENT_CSV = Arrays.asList(
+          "John Doe,70,80,90,60,65,FALSE",
+          ",70,80,90,60,65,FALSE",
+          "John Doe,70,80,90,60,65,70,80,90,60,65,FALSE",
+          "John Doe,FALSE",
+          "John Doe,70,80,90,60,65,true",
+          "John Doe,70,80,90,60,65,"
   );
 
   @Test
@@ -65,5 +75,43 @@ public class StudentTests {
   @Test
   public void testStudentGetAverageScoreWithOneMarks() {
     assertEquals(10.0, DUMMY_STUDENTS.get(3).getAverageScore());
+  }
+
+  @Test
+  public void testParseStudent() {
+    Student student = Student.fromCsv(DUMMY_STUDENT_CSV.get(0));
+    assertEquals("John Doe", student.name);
+    assertEquals(5, student.subjectsMarks.size());
+    assertFalse(student.isContract());
+  }
+
+  @Test
+  public void testParseStudentWithNoName() {
+    Student student = Student.fromCsv(DUMMY_STUDENT_CSV.get(1));
+    assertEquals("", student.name);
+  }
+
+  @Test
+  public void testParseStudentWithLotsOfMarks() {
+    Student student = Student.fromCsv(DUMMY_STUDENT_CSV.get(2));
+    assertEquals(10, student.subjectsMarks.size());
+  }
+
+  @Test
+  public void testParseStudentWithNoMarks() {
+    Student student = Student.fromCsv(DUMMY_STUDENT_CSV.get(3));
+    assertEquals(0, student.subjectsMarks.size());
+  }
+
+  @Test
+  public void testParseStudentWithIncorrectFormatOfContract() {
+    Student student = Student.fromCsv(DUMMY_STUDENT_CSV.get(4));
+    assertFalse(student.isContract());
+  }
+
+  @Test
+  public void testParseStudentWithEmptyContract() {
+    Student student = Student.fromCsv(DUMMY_STUDENT_CSV.get(5));
+    assertFalse(student.isContract());
   }
 }

@@ -22,15 +22,6 @@ public class MainTests {
           new Student("Emily Thomas", Arrays.asList(70, 62, 98, 77, 84), false)
   );
 
-  private static final List<String> DUMMY_STUDENT_INFO = Arrays.asList(
-          "John Doe,70,80,90,60,65,FALSE",
-          ",70,80,90,60,65,FALSE",
-          "John Doe,70,80,90,60,65,70,80,90,60,65,FALSE",
-          "John Doe,FALSE",
-          "John Doe,70,80,90,60,65,true",
-          "John Doe,70,80,90,60,65,"
-  );
-
   @Test
   public void testSelectNonContractStudents() {
     List<Student> selectedStudents = Main.selectTopNonContractStudents(DUMMY_STUDENTS, 0.5f);
@@ -71,43 +62,5 @@ public class MainTests {
   @Test(expected = IllegalArgumentException.class)
   public void testSelectMoreThan100Percents() {
     Main.selectTopNonContractStudents(DUMMY_STUDENTS, 1.05f);
-  }
-
-  @Test
-  public void testParseStudent() {
-    Student student = Main.parseStudent(DUMMY_STUDENT_INFO.get(0));
-    assertEquals("John Doe", student.name);
-    assertEquals(5, student.subjectsMarks.size());
-    assertFalse(student.isContract());
-  }
-
-  @Test
-  public void testParseStudentWithNoName() {
-    Student student = Main.parseStudent(DUMMY_STUDENT_INFO.get(1));
-    assertEquals("", student.name);
-  }
-
-  @Test
-  public void testParseStudentWithLotsOfMarks() {
-    Student student = Main.parseStudent(DUMMY_STUDENT_INFO.get(2));
-    assertEquals(10, student.subjectsMarks.size());
-  }
-
-  @Test
-  public void testParseStudentWithNoMarks() {
-    Student student = Main.parseStudent(DUMMY_STUDENT_INFO.get(3));
-    assertEquals(0, student.subjectsMarks.size());
-  }
-
-  @Test
-  public void testParseStudentWithIncorrectFormatOfContract() {
-    Student student = Main.parseStudent(DUMMY_STUDENT_INFO.get(4));
-    assertFalse(student.isContract());
-  }
-
-  @Test
-  public void testParseStudentWithEmptyContract() {
-    Student student = Main.parseStudent(DUMMY_STUDENT_INFO.get(5));
-    assertFalse(student.isContract());
   }
 }

@@ -47,7 +47,7 @@ public class Main {
     return new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))
             .lines()
             .skip(1)
-            .map(Main::parseStudent)
+            .map(Student::fromCsv)
             .collect(Collectors.toList());
   }
 
@@ -55,16 +55,6 @@ public class Main {
     PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8));
     students.stream().map(Student::toCSV).forEach(pw::println);
     pw.close();
-  }
-
-  static Student parseStudent(String line) {
-    String[] info = line.split(",");
-    String name = info[0];
-    List<Integer> marks = Arrays.stream(Arrays.copyOfRange(info, 1, info.length - 1))
-            .map(Integer::parseInt)
-            .collect(Collectors.toList());
-    boolean isContract = info[info.length - 1].equals("TRUE");
-    return new Student(name, marks, isContract);
   }
 
   static List<Student> selectTopNonContractStudents(List<Student> students, double topPercentage) {
