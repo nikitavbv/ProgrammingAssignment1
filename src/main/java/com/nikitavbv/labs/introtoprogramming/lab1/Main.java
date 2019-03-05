@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -90,8 +91,11 @@ public class Main {
    * @throws IOException if file write failed
    */
   private static void saveStudentsList(List<Student> students, File file) throws IOException {
-    PrintWriter pw = new PrintWriter(new OutputStreamWriter(
-            new FileOutputStream(file), StandardCharsets.UTF_8));
+    saveStudentsList(students, new FileOutputStream(file));
+  }
+
+  static void saveStudentsList(List<Student> students, OutputStream out) {
+    PrintWriter pw = new PrintWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
     students.stream().map(Student::toCsv).forEach(pw::println);
     pw.close();
   }

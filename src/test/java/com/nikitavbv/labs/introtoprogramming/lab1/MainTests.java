@@ -5,6 +5,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -83,5 +84,19 @@ public class MainTests {
     assertEquals("Petrov", studentList.get(1).name);
     assertEquals(84.0, studentList.get(1).getAverageScore());
     assertTrue(studentList.get(1).isContract());
+  }
+
+  @Test
+  public void testSaveStudentsList() {
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    Main.saveStudentsList(DUMMY_STUDENTS, out);
+    assertEquals("John Doe,73.000\n" +
+            "Sandra Reeves,79.800\n" +
+            "Ricky Edwards,75.400\n" +
+            "Lucas Sanders,81.800\n" +
+            "Edgar Turner,75.400\n" +
+            "Emily Thomas,78.200\n",
+            out.toString()
+    );
   }
 }
