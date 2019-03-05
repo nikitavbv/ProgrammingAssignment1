@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -39,10 +41,7 @@ public class Main {
       List<Student> studentsWithScholarship =
               selectTopNonContractStudents(students, SCHOLARSHIP_PERCENTAGE);
 
-      double minScoreForScholarship = studentsWithScholarship.stream()
-              .mapToDouble(Student::getAverageScore)
-              .min()
-              .orElseThrow(() -> new RuntimeException("No students eligible for scholarship"));
+      double minScoreForScholarship = getMinScoreForScholarship(studentsWithScholarship);
 
       System.out.printf("Min score for scholarship: %f%n", minScoreForScholarship);
       System.out.printf("Students with scholarship (%d total):%n",
@@ -64,8 +63,17 @@ public class Main {
    * @throws IOException if file read failed
    */
   private static List<Student> loadStudentList(File file) throws IOException {
-    return new BufferedReader(new InputStreamReader(
-            new FileInputStream(file), StandardCharsets.UTF_8))
+    return loadStudentList(new FileInputStream(file));
+  }
+
+  /**
+   * Load student list from csv data input stream.
+   *
+   * @param in input stream with student data as csv
+   * @return list of students
+   */
+  static List<Student> loadStudentList(InputStream in) {
+    return new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))
             .lines()
             .skip(1)
             .map(Student::fromCsv)
@@ -80,8 +88,11 @@ public class Main {
    * @throws IOException if file write failed
    */
   private static void saveStudentsList(List<Student> students, File file) throws IOException {
-    PrintWriter pw = new PrintWriter(new OutputStreamWriter(
-            new FileOutputStream(file), StandardCharsets.UTF_8));
+    saveStudentsList(students, new FileOutputStream(file));
+  }
+
+  static void saveStudentsList(List<Student> students, OutputStream out) {
+    PrintWriter pw = new PrintWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
     students.stream().map(Student::toCsv).forEach(pw::println);
     pw.close();
   }
@@ -106,5 +117,18 @@ public class Main {
             .sorted(Comparator.comparingDouble(s -> -s.getAverageScore()))
             .collect(Collectors.toList());
     return rating.subList(0, (int) Math.floor(rating.size() * topPercentage));
+  }
+
+  /**
+   * Returns min score for student to be eligible for scholarship.
+   *
+   * @param studentsWithScholarship list of students with scholarship
+   * @return min score across students with scholarship
+   */
+  static double getMinScoreForScholarship(List<Student> studentsWithScholarship) {
+    return studentsWithScholarship.stream()
+            .mapToDouble(Student::getAverageScore)
+            .min()
+            .orElseThrow(() -> new RuntimeException("No students eligible for scholarship"));
   }
 }

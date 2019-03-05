@@ -5,6 +5,7 @@ plugins {
 }
 
 apply plugin: 'com.github.spotbugs'
+apply plugin: 'jacoco'
 
 group 'com.nikitavbv.labs.introtoprogramming'
 version '1.0-SNAPSHOT'
@@ -49,4 +50,11 @@ spotbugs {
 
 checkstyle {
     toolVersion '8.17'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
 }
