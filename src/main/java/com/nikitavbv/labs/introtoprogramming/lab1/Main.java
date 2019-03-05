@@ -67,7 +67,7 @@ public class Main {
   }
 
   /**
-   * Load student list from csv data input stream
+   * Load student list from csv data input stream.
    *
    * @param in input stream with student data as csv
    * @return list of students
