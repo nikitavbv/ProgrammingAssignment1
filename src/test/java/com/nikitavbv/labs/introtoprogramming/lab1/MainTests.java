@@ -4,6 +4,7 @@ import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 
+import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +21,10 @@ public class MainTests {
           new Student("Edgar Turner", Arrays.asList(74, 81, 97, 62, 63), false),
           new Student("Emily Thomas", Arrays.asList(70, 62, 98, 77, 84), false)
   );
+
+  private static final String DUMMY_CSV_INPUT = "2\n" +
+          "Ivanov,78,61,95,87,90,FALSE\n" +
+          "Petrov,85,66,70,99,100,TRUE";
 
   @Test
   public void testSelectNonContractStudents() {
@@ -64,5 +69,19 @@ public class MainTests {
   @Test(expected = IllegalArgumentException.class)
   public void testSelectMoreThan100Percents() {
     Main.selectTopNonContractStudents(DUMMY_STUDENTS, 1.05f);
+  }
+
+  @Test
+  public void testLoadStudentList() {
+    List<Student> studentList = Main.loadStudentList(
+            new ByteArrayInputStream(DUMMY_CSV_INPUT.getBytes())
+    );
+    assertEquals(2, studentList.size());
+    assertEquals("Ivanov", studentList.get(0).name);
+    assertEquals(82.2, studentList.get(0).getAverageScore());
+    assertFalse(studentList.get(0).isContract());
+    assertEquals("Petrov", studentList.get(1).name);
+    assertEquals(84.0, studentList.get(1).getAverageScore());
+    assertTrue(studentList.get(1).isContract());
   }
 }

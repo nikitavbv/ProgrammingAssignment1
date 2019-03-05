@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -64,8 +65,17 @@ public class Main {
    * @throws IOException if file read failed
    */
   private static List<Student> loadStudentList(File file) throws IOException {
-    return new BufferedReader(new InputStreamReader(
-            new FileInputStream(file), StandardCharsets.UTF_8))
+    return loadStudentList(new FileInputStream(file));
+  }
+
+  /**
+   * Load student list from csv data input stream
+   *
+   * @param in input stream with student data as csv
+   * @return list of students
+   */
+  static List<Student> loadStudentList(InputStream in) {
+    return new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))
             .lines()
             .skip(1)
             .map(Student::fromCsv)
