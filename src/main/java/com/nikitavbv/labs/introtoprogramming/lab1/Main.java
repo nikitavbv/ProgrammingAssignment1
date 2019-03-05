@@ -57,10 +57,10 @@ public class Main {
     pw.close();
   }
 
-  private static Student parseStudent(String line) {
+  static Student parseStudent(String line) {
     String[] info = line.split(",");
     String name = info[0];
-    List<Integer> marks = Arrays.stream(Arrays.copyOfRange(info, 1, info.length - 2))
+    List<Integer> marks = Arrays.stream(Arrays.copyOfRange(info, 1, info.length - 1))
             .map(Integer::parseInt)
             .collect(Collectors.toList());
     boolean isContract = info[info.length - 1].equals("TRUE");
