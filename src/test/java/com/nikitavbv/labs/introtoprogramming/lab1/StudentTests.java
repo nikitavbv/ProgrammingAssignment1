@@ -39,12 +39,12 @@ public class StudentTests {
 
   @Test
   public void testStudentToStringWithEmptyName() {
-    assertEquals("                     73.000", DUMMY_STUDENTS.get(2).toString());
+    assertEquals("                     10.000", DUMMY_STUDENTS.get(2).toString());
   }
 
   @Test
   public void testStudentToStringWithLongName() {
-    assertEquals("Hans Christian Andersen 73.000", DUMMY_STUDENTS.get(3).toString());
+    assertEquals("Hans Christian Andersen 10.000", DUMMY_STUDENTS.get(3).toString());
   }
 
   @Test
