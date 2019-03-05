@@ -47,4 +47,23 @@ public class StudentTests {
     assertEquals("Hans Christian Andersen 73.000", DUMMY_STUDENTS.get(3).toString());
   }
 
+  @Test
+  public void testStudentGetAverageScore() {
+    assertEquals(73.0, DUMMY_STUDENTS.get(0).getAverageScore());
+  }
+
+  @Test
+  public void testStudentGetAverageScoreWithNoMarks() {
+    assertEquals(0.0, DUMMY_STUDENTS.get(1).getAverageScore());
+  }
+
+  @Test
+  public void testStudentGetAverageScoreWithSameMarks() {
+    assertEquals(10.0, DUMMY_STUDENTS.get(2).getAverageScore());
+  }
+
+  @Test
+  public void testStudentGetAverageScoreWithOneMarks() {
+    assertEquals(10.0, DUMMY_STUDENTS.get(3).getAverageScore());
+  }
 }
