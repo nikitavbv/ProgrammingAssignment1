@@ -32,7 +32,14 @@ public class Student {
    */
   static Student fromCsv(String line) {
     String[] info = line.split(",");
-    String name = info[0];
+    String name;
+    if (info[0].startsWith("\"")) {
+      int index = line.lastIndexOf("\"");
+      name = line.substring(1, index);
+      info = line.substring(index, line.length()).split(",");
+    } else {
+      name = info[0];
+    }
     List<Integer> marks = Arrays.stream(Arrays.copyOfRange(info, 1, info.length - 1))
             .map(Integer::parseInt)
             .collect(Collectors.toList());
