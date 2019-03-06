@@ -33,10 +33,20 @@ public class Student {
   static Student fromCsv(String line) {
     String[] info = line.split(",");
     String name = info[0];
-    List<Integer> marks = Arrays.stream(Arrays.copyOfRange(info, 1, info.length - 1))
+    String lastToken = info[info.length - 1];
+    boolean isContract = false;
+    int lastSubjectTokenIndex = info.length - 2;
+
+    if (lastToken.matches("[0-9]*")) {
+      lastSubjectTokenIndex = info.length - 1;
+    } else {
+      isContract = lastToken.equals("TRUE") || lastToken.equals("+");
+    }
+
+    List<Integer> marks = Arrays.stream(Arrays.copyOfRange(info, 1, lastSubjectTokenIndex + 1))
             .map(Integer::parseInt)
             .collect(Collectors.toList());
-    boolean isContract = info[info.length - 1].equals("TRUE");
+
     return new Student(name, marks, isContract);
   }
 

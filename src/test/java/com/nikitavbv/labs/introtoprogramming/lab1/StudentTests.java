@@ -1,6 +1,7 @@
 package com.nikitavbv.labs.introtoprogramming.lab1;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 import java.util.Arrays;
@@ -23,7 +24,10 @@ public class StudentTests {
           "John Doe,70,80,90,60,65,70,80,90,60,65,FALSE",
           "John Doe,FALSE",
           "John Doe,70,80,90,60,65,true",
-          "John Doe,70,80,90,60,65,"
+          "John Doe,70,80,90,60,65,",
+          "John Doe,70,80,90,60,65,+",
+          "John Doe,70,80,90,60,65,-",
+          "John Doe,70,80,90,60,65"
   );
 
   @Test
@@ -55,7 +59,7 @@ public class StudentTests {
   public void testStudentToStringWithLongName() {
     assertEquals("Hans Christian Andersen 10.000", DUMMY_STUDENTS.get(3).toString());
   }
-
+  
   @Test
   public void testStudentGetAverageScore() {
     assertEquals(73.0, DUMMY_STUDENTS.get(0).getAverageScore());
@@ -112,5 +116,26 @@ public class StudentTests {
   public void testParseStudentWithEmptyContract() {
     Student student = Student.fromCsv(DUMMY_STUDENT_CSV.get(5));
     assertFalse(student.isContract());
+  }
+
+  @Test
+  public void testParseStudentWithContractPlusSign() {
+    Student student = Student.fromCsv(DUMMY_STUDENT_CSV.get(6));
+    assertTrue(student.isContract());
+    assertEquals(73.0, student.getAverageScore());
+  }
+
+  @Test
+  public void testParseStudentContractMinusSign() {
+    Student student = Student.fromCsv(DUMMY_STUDENT_CSV.get(7));
+    assertFalse(student.isContract());
+    assertEquals(73.0, student.getAverageScore());
+  }
+
+  @Test
+  public void testParseStudentNoContractField() {
+    Student student = Student.fromCsv(DUMMY_STUDENT_CSV.get(8));
+    assertFalse(student.isContract());
+    assertEquals(73.0, student.getAverageScore());
   }
 }
