@@ -32,14 +32,17 @@ public class Student {
    */
   static Student fromCsv(String line) {
     String[] info = line.split(",");
+
     String name;
     if (info[0].startsWith("\"")) {
-      int index = line.lastIndexOf("\"");
-      name = line.substring(1, index);
-      info = line.substring(index, line.length()).split(",");
+      int nameEndIndex = line.lastIndexOf("\"");
+      name = line.substring(1, nameEndIndex);
+      info = line.substring(nameEndIndex).split(",");
     } else {
       name = info[0];
-    }    String lastToken = info[info.length - 1];
+    }
+
+    String lastToken = info[info.length - 1];
     boolean isContract = false;
     int lastSubjectTokenIndex = info.length - 2;
 
