@@ -1,6 +1,6 @@
-# Introduction to programming - lab1
-[![Build Status](https://travis-ci.org/nikitavbv/ProgrammingAssignment1.svg?branch=master)](https://travis-ci.org/nikitavbv/ProgrammingAssignment1)
-[![codecov.io](https://img.shields.io/codecov/c/github/nikitavbv/ProgrammingAssignment1/master.svg?label=coverage)](https://codecov.io/github/nikitavbv/ProgrammingAssignment1?branch=master)
+# Introduction to programming - lab2
+[![Build Status](https://travis-ci.org/nikitavbv/ProgrammingAssignment2.svg?branch=master)](https://travis-ci.org/nikitavbv/ProgrammingAssignment2)
+[![codecov.io](https://img.shields.io/codecov/c/github/nikitavbv/ProgrammingAssignment2/master.svg?label=coverage)](https://codecov.io/github/nikitavbv/ProgrammingAssignment2?branch=master)
 
 Solution for [assignment #2](https://github.com/ProgramEngineeringKPI/Introduction-To-Programming/blob/master/labs_spring_2019/assignment_2.md).
 
